@@ -1,0 +1,10 @@
+[wsl2]
+# limit memory & processors
+memory=6000MB
+processors=2
+
+# disable swapfile (windows)
+swap=0
+
+# disable swapiness (new distros)
+kernelCommandLine = "sysctl.vm.swappiness=0"
