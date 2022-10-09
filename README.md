@@ -1,9 +1,9 @@
 # wsl2-vmmem-fix
 Helpful changes to fix vmmem eating up available physical memory and flooding your disk. \
-Systems with low amounts of physical RAM can benefit the most of these changes. \
+Systems with low amounts of physical RAM can benefit the most of these changes.
 
 ## One reason why vmmem process uses so much memory..
-> __ANSWER: IT IS FILE CACHING! :(__
+> __ANSWER: IT IS THE FILE CACHING! :(__
 
 The high VM memory usage (in windows process __vmmem__) is because \
 linux caches files for better performance.
@@ -37,13 +37,13 @@ vm.swappiness=0
 ```
 Apply changes with ``sudo sysctl -p`` command.
 
-> NB! Increase your memory limit if it is not enough for VM!
+> NB! Increase your memory limit in ``.wslconfig`` if it is not enough for VM!
 
 
 ### Forcing distro to release cached files memory
 
 WSL distro kernel tries to re-claim small amounts of memory \
-back to host by running periodically (PS. when CPU is idle!): \
+back to host by running periodically (when CPU is idle): \
 ``echo 1 > /proc/sys/vm/compact_memory``
 
 This can be seen in ``dmesg -T`` logs:
@@ -63,6 +63,9 @@ echo 1 > /proc/sys/vm/drop_caches
 ```
 > NB! This will free the memory but could slow down \
 > the performance/speed when working with WSL distro.
+
+Read more about the WSL memory reclaiming: \
+https://devblogs.microsoft.com/commandline/memory-reclaim-in-the-windows-subsystem-for-linux-2/
 
 ## Windows
 
